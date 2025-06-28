@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/UI/header";
+import Header from "@/components/UI/layout/header";
 import { Providers } from "@/providers/provider";
 import { siteConfig } from "@/config/site.config";
 import { layoutConfig } from "@/config/layout.config";
@@ -34,12 +34,16 @@ export default function RootLayout({
         <Providers>
           <Header />
           <main
-            className={`flex flex-col h-[calc(100vh-${layoutConfig.headerHeight}-${layoutConfig.footerHeight})] w-full justify-start items-center`}
+            className={`flex flex-col w-full justify-start items-center`}
+            style={{
+              height: `calc(100vh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})`
+            }}
           >
             {children}
           </main>
           <footer
-            className={`h-[${layoutConfig.footerHeight}] w-full flex items-center justify-center py-3`}
+            className={`w-full flex items-center justify-center py-3`}
+            style={{ height: layoutConfig.footerHeight }}
           >
             <p>{siteConfig.description}</p>
           </footer>

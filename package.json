@@ -9,24 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroui/form": "^2.1.21",
+    "@heroui/input": "^2.4.22",
+    "@heroui/modal": "^2.2.19",
     "@heroui/navbar": "^2.2.20",
     "@heroui/react": "^2.8.0-beta.10",
     "@heroui/system": "^2.4.18",
     "@heroui/theme": "^2.4.17",
-    "framer-motion": "^12.19.1",
+    "@prisma/extension-accelerate": "^2.0.1",
+    "framer-motion": "^12.19.2",
     "next": "15.3.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@prisma/client": "^6.10.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
+    "prisma": "^6.10.1",
     "tailwindcss": "^4",
+    "tsx": "^4.20.3",
     "typescript": "^5"
   }
 }
