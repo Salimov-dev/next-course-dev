@@ -1,6 +1,5 @@
 "use client";
 
-import { signInWithCredentials } from "@/actions/sign-in-with-credentials";
 import { Button, Form, Input } from "@heroui/react";
 import { useState } from "react";
 
@@ -17,18 +16,9 @@ const LoginForm = ({ onClose }: IProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form data:", formData);
-    try {
-      console.log("signInWithCredentials before");
-      const result = await signInWithCredentials(
-        formData.email,
-        formData.password
-      );
-      console.log("result", result);
-      onClose();
-    } catch (error) {
-      console.error("Ошибка:", error);
-    }
+    console.log("Form submitted:", formData);
+
+    onClose();
   };
 
   return (
