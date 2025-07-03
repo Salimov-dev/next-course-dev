@@ -6,11 +6,13 @@ import Credentials from "next-auth/providers/credentials";
 import { signInSchema } from "@/schema/zod";
 import { getUserFromDb } from "@/utils/user";
 import prisma from "@/utils/prisma";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
-    Credentials({
+    CredentialsProvider({
+      name: "Account",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" }
@@ -55,13 +57,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
     maxAge: 3600
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
       }
       return token;
+    },
+    async session({ session, token, user }) {
+      console.log("session callback fired");
+      return session;
     }
   }
 });
