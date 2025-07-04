@@ -31,7 +31,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  console.log("session", session);
 
   return (
     <html lang="en">
@@ -44,7 +43,7 @@ export default async function RootLayout({
               <Header />
               <Title />
               <main
-                className={`flex flex-col w-full justify-start items-center`}
+                className={`flex flex-col max-w-[1024px] mx-auto px-[24px] justify-start items-center`}
                 style={{
                   height: `calc(100vh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})`
                 }}
