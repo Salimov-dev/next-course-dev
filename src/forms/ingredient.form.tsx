@@ -1,7 +1,7 @@
 "use client";
 
-import { createIngredient } from "@/actions/ingredient";
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from "@/constants/select-options";
+import { useIngredientStore } from "@/store/ingredient.store";
 import { Button, Form, Input, Select, SelectItem } from "@heroui/react";
 import { useState, useTransition } from "react";
 
@@ -16,28 +16,25 @@ const initialState = {
 const IngredientForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState(initialState);
-
+  const { addIngredient } = useIngredientStore();
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = async (formData: FormData) => {
-    console.log("Form submitted:", formData);
-
     startTransition(async () => {
-      const result = await createIngredient(formData);
+      await addIngredient(formData);
+      const storeError = useIngredientStore.getState().error;
 
-      if (result.error) {
-        setError(result.error);
-        alert("Ошибка при создании ингредиента");
+      if (storeError) {
+        setError(storeError);
       } else {
         setError(null);
         setFormData(initialState);
-        alert("Успешное создание ингредиента");
       }
     });
   };
 
   return (
-    <Form className="w-[400px]" action={handleSubmit}>
+    <Form className="w-full" action={handleSubmit}>
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <Input

@@ -40,3 +40,27 @@ export async function createIngredient(formData: FormData) {
     return { error: "Ошибка при создании ингредиента" };
   }
 }
+
+export async function getIngredients() {
+  try {
+    const ingredients = await prisma.ingredient.findMany();
+
+    return { success: true, ingredients };
+  } catch (error) {
+    console.error("Ошибка получения ингредиентов:", error);
+    return { error: "Ошибка при получении ингредиентов" };
+  }
+}
+
+export async function deleteIngredient(id: string) {
+  try {
+    const ingredient = await prisma.ingredient.delete({
+      where: { id }
+    });
+
+    return { success: true, ingredient };
+  } catch (error) {
+    console.error("Ошибка удаления ингредиента:", error);
+    return { error: "Ошибка при удалении ингредиента" };
+  }
+}

@@ -1,9 +1,11 @@
+import IngredientsTable from "@/components/UI/tables/Ingredients";
 import IngredientForm from "@/forms/ingredient.form";
 
 const IngredientsPage = () => {
   return (
-    <div>
+    <div style={{ height: "fit-content" }}>
       <IngredientForm />
+      <IngredientsTable />
     </div>
   );
 };
