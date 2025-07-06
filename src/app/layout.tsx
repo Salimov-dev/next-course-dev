@@ -42,10 +42,10 @@ export default async function RootLayout({
             <AppLoader>
               <div className="flex min-h-screen flex-col justify-between">
                 <Header />
-                <Title />
                 <main
                   className={`flex flex-col max-w-[1024px] mx-auto px-[24px] justify-start items-center`}
                 >
+                  <Title />
                   {children}
                 </main>
                 <footer
