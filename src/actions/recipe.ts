@@ -25,6 +25,7 @@ export async function createRecipe(formData: FormData) {
   try {
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
+    const imageUrl = formData.get("imageUrl") as string | null;
     const ingredients = Array.from(formData.entries())
       .filter(([key]) => key.startsWith("ingredient_"))
       .map(([key, value]) => ({
@@ -46,6 +47,7 @@ export async function createRecipe(formData: FormData) {
       data: {
         name,
         description,
+        imageUrl,
         ingredients: {
           create: ingredients.map(({ ingredientId, quantity }) => ({
             ingredient: { connect: { id: ingredientId } },
@@ -74,6 +76,7 @@ export async function updateRecipe(id: string, formData: FormData) {
   try {
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
+    const imageUrl = formData.get("imageUrl") as string | null;
     const ingredients = Array.from(formData.entries())
       .filter(([key]) => key.startsWith("ingredient_"))
       .map(([key, value]) => ({
@@ -95,6 +98,7 @@ export async function updateRecipe(id: string, formData: FormData) {
       data: {
         name,
         description,
+        imageUrl,
         ingredients: {
           deleteMany: {}, // Удаляем старые связи
           create: ingredients.map(({ ingredientId, quantity }) => ({

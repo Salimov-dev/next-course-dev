@@ -19,14 +19,16 @@ interface IngredientField {
 
 const initialState = {
   name: "",
-  description: ""
+  description: "",
+  imageUrl: ""
 };
 
 const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: initialRecipe?.name || initialState.name,
-    description: initialRecipe?.description || initialState.description
+    description: initialRecipe?.description || initialState.description,
+    imageUrl: initialRecipe?.imageUrl || initialState.imageUrl
   });
   const [ingredientFields, setIngredientFields] = useState<IngredientField[]>(
     initialRecipe?.ingredients
@@ -118,6 +120,17 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
         onChange={(e) =>
           setFormData({ ...formData, description: e.target.value })
         }
+      />
+      <Input
+        name="imageUrl"
+        placeholder="URL изображения (необязательно)"
+        type="url"
+        value={formData.imageUrl}
+        classNames={{
+          inputWrapper: "bg-default-100",
+          input: "text-sm focus:outline-none"
+        }}
+        onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
       />
 
       <div className="space-y-2 w-full">
