@@ -31,6 +31,10 @@ const IngredientsTable = () => {
     return option ? option.label : value;
   };
 
+  if (!isAuth) {
+    return <p>Не авторизован</p>;
+  }
+
   return !isLoading && isAuth ? (
     <Table
       aria-label="Список ингредиентов"
