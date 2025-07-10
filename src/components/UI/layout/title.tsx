@@ -10,7 +10,7 @@ const Title = () => {
     (item) => item.href === pathname
   );
 
-  const pageTitle = currentNavItem ? currentNavItem.label : null;
+  const pageTitle = currentNavItem ? currentNavItem.label : siteConfig.title;
 
   return (
     <div className="w-full flex justify-center my-6">

@@ -26,6 +26,7 @@ export async function createRecipe(formData: FormData) {
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
     const imageUrl = formData.get("imageUrl") as string | null;
+
     const ingredients = Array.from(formData.entries())
       .filter(([key]) => key.startsWith("ingredient_"))
       .map(([key, value]) => ({
@@ -34,7 +35,6 @@ export async function createRecipe(formData: FormData) {
           formData.get(`quantity_${key.split("_")[1]}`) as string
         )
       }));
-    console.log("formData", formData);
 
     if (!name || ingredients.length === 0) {
       return {
@@ -63,7 +63,6 @@ export async function createRecipe(formData: FormData) {
         }
       }
     });
-    console.log("recipe", recipe);
 
     return { success: true, recipe };
   } catch (error) {
@@ -100,7 +99,7 @@ export async function updateRecipe(id: string, formData: FormData) {
         description,
         imageUrl,
         ingredients: {
-          deleteMany: {}, // Удаляем старые связи
+          deleteMany: {},
           create: ingredients.map(({ ingredientId, quantity }) => ({
             ingredient: { connect: { id: ingredientId } },
             quantity
@@ -128,9 +127,11 @@ export async function deleteRecipe(id: string) {
     await prisma.recipeIngredient.deleteMany({
       where: { recipeId: id }
     });
+
     await prisma.recipe.delete({
       where: { id }
     });
+
     return { success: true };
   } catch (error) {
     console.error("Error deleting recipe:", error);

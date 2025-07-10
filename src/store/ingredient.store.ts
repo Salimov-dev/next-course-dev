@@ -31,7 +31,7 @@ export const useIngredientStore = create<IngredientState>((set) => ({
         set({ error: result.error, isLoading: false });
       }
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
       set({ error: "Ошибка при загрузке ингредиентов", isLoading: false });
     }
   },
@@ -50,7 +50,7 @@ export const useIngredientStore = create<IngredientState>((set) => ({
         set({ error: result.error, isLoading: false });
       }
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
       set({ error: "Ошибка при добавлении ингредиента", isLoading: false });
     }
   },
@@ -71,7 +71,7 @@ export const useIngredientStore = create<IngredientState>((set) => ({
         set({ error: result.error, isLoading: false });
       }
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
       set({ error: "Ошибка при удалении ингредиента", isLoading: false });
     }
   }

@@ -42,7 +42,7 @@ export default function Header() {
     try {
       await signOutFunc();
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
     }
 
     setAuthState("unauthenticated", null);

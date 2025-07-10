@@ -1,18 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRecipeStore } from "@/store/recipe.store";
 import RecipeCard from "@/components/common/recipe-card";
+import { useRecipeStore } from "@/store/recipe.store";
 import { Button } from "@heroui/react";
 import Link from "next/link";
 
 export default function Home() {
-  const { recipes, isLoading, error, loadRecipes } = useRecipeStore();
-  console.log("recipes", recipes);
-
-  useEffect(() => {
-    loadRecipes();
-  }, [loadRecipes]);
+  const { recipes, isLoading, error } = useRecipeStore();
 
   return (
     <>

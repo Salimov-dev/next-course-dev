@@ -1,30 +1,29 @@
-import { create } from "zustand";
-
-import { IRecipe } from "@/types/recipe";
 import {
   createRecipe,
   deleteRecipe,
   getRecipes,
   updateRecipe
 } from "@/actions/recipe";
+import { IRecipe } from "@/types/recipe";
+import { create } from "zustand";
 
-interface ActionResult {
+interface IActionResult {
   success: boolean;
   recipe?: IRecipe;
   error?: string;
 }
 
-interface RecipeState {
+interface IRecipeState {
   recipes: IRecipe[];
   isLoading: boolean;
   error: string | null;
   loadRecipes: () => Promise<void>;
-  addRecipe: (formData: FormData) => Promise<ActionResult>;
-  updateRecipe: (id: string, formData: FormData) => Promise<ActionResult>;
+  addRecipe: (formData: FormData) => Promise<IActionResult>;
+  updateRecipe: (id: string, formData: FormData) => Promise<IActionResult>;
   removeRecipe: (id: string) => Promise<void>;
 }
 
-export const useRecipeStore = create<RecipeState>((set) => ({
+export const useRecipeStore = create<IRecipeState>((set) => ({
   recipes: [],
   isLoading: false,
   error: null,
@@ -40,7 +39,7 @@ export const useRecipeStore = create<RecipeState>((set) => ({
         set({ error: result.error, isLoading: false });
       }
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
       set({ error: "Ошибка при загрузке рецептов", isLoading: false });
     }
   },
@@ -60,7 +59,7 @@ export const useRecipeStore = create<RecipeState>((set) => ({
         return { success: false, error: result.error };
       }
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
       set({ error: "Ошибка при добавлении рецепта", isLoading: false });
       return { success: false, error: "Ошибка при добавлении рецепта" };
     }
@@ -83,7 +82,7 @@ export const useRecipeStore = create<RecipeState>((set) => ({
         return { success: false, error: result.error };
       }
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
       set({ error: "Ошибка при обновлении рецепта", isLoading: false });
       return { success: false, error: "Ошибка при обновлении рецепта" };
     }
@@ -103,7 +102,7 @@ export const useRecipeStore = create<RecipeState>((set) => ({
         set({ error: result.error, isLoading: false });
       }
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
       set({ error: "Ошибка при удалении рецепта", isLoading: false });
     }
   }

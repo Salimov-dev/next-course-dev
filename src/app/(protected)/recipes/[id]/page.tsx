@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 import RecipeForm from "@/forms/recipe.form";
 import { useRecipeStore } from "@/store/recipe.store";
 import { IRecipe } from "@/types/recipe";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function EditRecipePage() {
+const EditRecipePage = () => {
   const { id } = useParams<{ id: string }>();
   const { recipes, isLoading, error } = useRecipeStore();
   const [recipe, setRecipe] = useState<IRecipe | null>(null);
@@ -23,12 +23,10 @@ export default function EditRecipePage() {
   if (isLoading) return <p className="text-center">Загрузка...</p>;
   if (error) return <p className="text-red-500 text-center">{error}</p>;
 
-  // Показываем "не найден" только после завершения поиска
   if (hasSearched && !recipe) {
     return <p className="text-red-500 text-center">Рецепт не найден</p>;
   }
 
-  // Показываем форму только когда рецепт найден
   if (recipe) {
     return (
       <div className="container mx-auto p-4">
@@ -40,6 +38,7 @@ export default function EditRecipePage() {
     );
   }
 
-  // Пока данные загружаются и рецепт еще не найден, но и ошибки нет
   return <p className="text-center">Загрузка...</p>;
-}
+};
+
+export default EditRecipePage;

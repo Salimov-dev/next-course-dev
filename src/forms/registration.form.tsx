@@ -22,11 +22,7 @@ const RegistrationForm = ({ onClose }: IProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-
-    const result = await registerUser(formData);
-
-    console.log("result", result);
+    await registerUser(formData);
 
     onClose();
   };

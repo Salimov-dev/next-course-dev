@@ -6,8 +6,6 @@ import { ZodError } from "zod";
 
 export async function createIngredient(formData: FormData) {
   try {
-    console.log("formData", formData);
-
     const data = {
       name: formData.get("name") as string,
       category: formData.get("category") as string,
@@ -54,23 +52,6 @@ export async function getIngredients() {
 
 export async function deleteIngredient(id: string) {
   try {
-    // Проверим, есть ли рецепты, использующие этот ингредиент
-    const recipesUsingIngredient = await prisma.recipe.findMany({
-      where: {
-        ingredients: {
-          some: {
-            ingredientId: id
-          }
-        }
-      }
-    });
-
-    if (recipesUsingIngredient.length > 0) {
-      throw new Error(
-        `Ингредиент используется в ${recipesUsingIngredient.length} рецептах`
-      );
-    }
-
     const ingredient = await prisma.ingredient.delete({
       where: { id }
     });

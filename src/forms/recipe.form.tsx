@@ -8,11 +8,11 @@ import { IRecipe } from "@/types/recipe";
 import { useRouter } from "next/navigation";
 
 interface RecipeFormProps {
-  initialRecipe?: IRecipe; // Для редактирования
+  initialRecipe?: IRecipe;
 }
 
-interface IngredientField {
-  id: number; // Уникальный ID для поля
+interface IIngredientField {
+  id: number;
   ingredientId: string;
   quantity: number | null;
 }
@@ -25,12 +25,14 @@ const initialState = {
 
 const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
   const [error, setError] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
     name: initialRecipe?.name || initialState.name,
     description: initialRecipe?.description || initialState.description,
     imageUrl: initialRecipe?.imageUrl || initialState.imageUrl
   });
-  const [ingredientFields, setIngredientFields] = useState<IngredientField[]>(
+
+  const [ingredientFields, setIngredientFields] = useState<IIngredientField[]>(
     initialRecipe?.ingredients
       ? initialRecipe.ingredients.map((ing, index) => ({
           id: index,
@@ -39,9 +41,8 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
         }))
       : [{ id: 0, ingredientId: "", quantity: null }]
   );
-  const { ingredients } = useIngredientStore();
-  console.log("ingredients", ingredients);
 
+  const { ingredients } = useIngredientStore();
   const { addRecipe, updateRecipe } = useRecipeStore();
   const [isPending, startTransition] = useTransition();
 
@@ -64,7 +65,7 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
 
   const handleIngredientChange = (
     id: number,
-    field: keyof IngredientField,
+    field: keyof IIngredientField,
     value: string | number | null
   ) => {
     setIngredientFields(
@@ -81,9 +82,9 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
         : await addRecipe(formData);
 
       if (result.success) {
-        setFormData(initialState);
         setIngredientFields([{ id: 0, ingredientId: "", quantity: null }]);
         router.push("/");
+        setFormData(initialState);
       } else {
         setError(result.error || "Ошибка при сохранении рецепта");
       }
@@ -193,6 +194,7 @@ const RecipeForm = ({ initialRecipe }: RecipeFormProps) => {
             )}
           </div>
         ))}
+
         {ingredientFields.length < 10 && (
           <Button
             color="primary"

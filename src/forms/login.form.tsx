@@ -17,7 +17,6 @@ const LoginForm = ({ onClose }: IProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
 
     await signInWithCredentials(formData.email, formData.password);
 
